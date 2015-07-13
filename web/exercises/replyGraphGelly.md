@@ -14,10 +14,10 @@ This exercise uses the output of the [Reply Graph]({{ site.baseurl }}/exercises/
 The input data can be read as `DataSet<Tuple3<String, String, Integer>>`. The first field is the sender email address of the reply mail, the second field is the sender email address of the mail that was replied to, and the third field is the number of reply connections between these two email addresses. When printed, the data set should look like this:
 
 ~~~
-(fhueske@gmail.com,hongbosoftware@163.com,1)
-(fhueske@gmail.com,kostas.tzoumas@tu-berlin.de,9)
-(fhueske@gmail.com,mneumann@spotify.com,5)
-(fhueske@gmail.com,sewen@apache.org,42)
+(sewen@apache.org,rmetzger@apache.org,72)
+(aljoscha@apache.org,sewen@apache.org,40)
+(fhueske@apache.org,rmetzger@apache.org,22)
+(rmetzger@apache.org,fhueske@apache.org,22)
 ~~~
 
 
@@ -28,9 +28,8 @@ The result of the exercise should be a `DataSet<Vertex<String,Double>>`. The fir
 When printed, the data set should look like this:
 
 ~~~
-gyula.fora@gmail.com	0.023443367885291905
-
-cos@apache.org	0.001387967316018071
+sewen@apache.org,0.09693645392297123
+aljoscha@apache.org,0.038048230343289406
 ~~~
 
 ### Implementation Hints
@@ -43,15 +42,17 @@ This exercise can be solved in three steps.
 2. Use one of the methods of Gelly-API to create a weighted graph.
 2. Use the already implemented [PageRankAlgorithm](https://github.com/apache/flink/blob/master/flink-staging/flink-gelly/src/main/java/org/apache/flink/graph/library/PageRankAlgorithm.java) to produce the final output. 
 
-#### Generating a graph with weighted edges
+##### Generating a graph with weighted edges
 
-The data generated from the reply-graph exercise can be read as a data set of edges with emails being the source and target edge ids, while the number of reply connections can be stored as edge weights. A graph can then be obtained by calling the `fromDataSet` method. It is recommended to create a class which takes as input arguments: path of input file, output file and number of iterations for the page rank algorithm.
+1) The data generated from the reply-graph exercise can be read as a data set of edges with emails being the source and target edge ids, while the number of reply connections can be stored as edge weights. 
+
+2) A graph can then be obtained by calling the `fromDataSet` method. It is recommended to create a class which takes as input arguments: path of input file, output file and number of iterations for the page rank algorithm.
 
 **Note**, Add the `gelly dependency` in the pom file.
 
-#### Calculating page rank
+##### Calculating page rank
 
-A page distributes its page rank to the target vertices according to the weight of its outgoing edges e.g. if page A has two outgoing links (<A,B,2>, <A,C,1>), page B will get 2/3 of the total share of page rank distributed by A, while C will get only 1/3. A suggestion would be to update edge values once a graph has been obtained, by taking into consideration the sum of all the outgoing edges from a given vertex,(<A,B,2/3>,<A,C,1/3>).
+3) A page distributes its page rank to the target vertices according to the weight of its outgoing edges e.g. if page A has two outgoing links (<A,B,2>, <A,C,1>), page B will get 2/3 of the total share of page rank distributed by A, while C will get only 1/3. A suggestion would be to update edge values once a graph has been obtained, by taking into consideration the sum of all the outgoing edges from a given vertex,(<A,B,2/3>,<A,C,1/3>).
 
 The final step of this exercise is to simply apply the existing Page Rank algorithm by calling `graph.run(new PageRankAlgorithm<..>(input parameters))`.
 
