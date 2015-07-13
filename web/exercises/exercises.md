@@ -79,7 +79,7 @@ Gelly is a Java [Graph API](https://ci.apache.org/projects/flink/flink-docs-mast
 Define a graph using Gelly-API and analyze its structure by running an already implemented Page Rank algorithm.
 
 | **Instructions**				| [Gelly: Page Rank]({{ site.baseurl }}/exercises/replyGraphGelly.html)
-| **Reply Graph Data Set**                  | [ReplyGraph.java](https://github.com/dataArtisans/flink-training/blob/master/flink-exercises/src/main/java/com/dataArtisans/flinkTraining/exercises/dataSetJava/replyGraph/ReplyGraph.java) (Input Data Set for this exercise, is the output of the Reply Graph exercise)|
+| **Reply Graph Data Set**                  | [Reply Graph Data Set]({{ site.baseurl }}/exercises/replyGraph.html) (Input Data Set for this exercise, is the output of the Reply Graph exercise)|
 | **API Features**              | Graph.fromDataSet(), Graph.reduceOnEdges(), Graph.joinWithEdgesOnSource() |
 | **Reference Solution** &nbsp;&nbsp; | Java: [PageRankWithEdgeWeights.java](https://github.com/dataArtisans/flink-training/blob/master/flink-exercises/src/main/java/com/dataArtisans/flinkTraining/exercises/gellyJava/PageRankWithEdgeWeights.java) 
 
